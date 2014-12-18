@@ -1,0 +1,43 @@
+<!-- xml -->
+<launch>
+  <!-- No namespace here as we will share this description. 
+       Access with slash at the beginning -->
+
+
+ 
+<!--
+  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find turtlebot_description)/robots/$(arg base)_$(arg stacks)_$(arg 3d_sensor).urdf.xacro'" />
+  <param name="robot_description" command="$(arg urdf_file)" />
+-->
+
+  	
+  <!-- BEGIN ROBOT 1-->
+  <group ns="robot1">
+  
+    <arg name="robot_name_"  value="robot1" />
+    <arg name="tf_robot_" value="$(arg robot_name_)_tf" /> 
+    <param name="tf_prefix" value="$(arg tf_robot_)" />     
+    <include file="$(find demos)/launch/one_robot.launch" >    
+      <arg name="tf_robot" value="$(arg tf_robot_)" /> 
+      <arg name="init_pose" value="-x 1 -y 1 -z 0" />
+      <arg name="robot_name"  value="$(arg robot_name_)" />      
+    </include>
+  
+  </group>
+
+  <!-- BEGIN ROBOT 2-->
+
+  <group ns="robot2">
+    
+    <arg name="robot_name_"  value="robot2" />
+    <arg name="tf_robot_" value="$(arg robot_name_)_tf" /> 
+    <param name="tf_prefix" value="$(arg tf_robot_)" />     
+    <include file="$(find demos)/launch/one_robot.launch" >    
+      <arg name="tf_robot" value="$(arg tf_robot_)" /> 
+      <arg name="init_pose" value="-x -1 -y 1 -z 0" />
+      <arg name="robot_name"  value="$(arg robot_name_)" />      
+    </include>
+  
+  </group>
+
+</launch>

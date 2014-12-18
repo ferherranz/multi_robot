@@ -1,0 +1,28 @@
+<!-- xml -->
+<launch>   
+
+  <arg name="robot_name"/>  
+  <arg name="tf_robot"/> 
+  
+  <!--- Run AMCL -->
+  <arg name="initial_pose_x" default="0.0"/> 
+  <arg name="initial_pose_y" default="0.0"/> 
+  <arg name="initial_pose_a" default="0.0"/>
+  <include file="$(find multi_robots)/launch/includes/amcl_multirobot.launch.xml">
+    <arg name="use_map_topic"             value="true"/>
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+    <arg name="global_frame_id" value="/map"/>
+    <arg name="odom_frame_id"   value="$(arg tf_robot)/odom"/>
+    <arg name="base_frame_id"   value="$(arg tf_robot)/base_footprint"/>
+    
+  </include>
+
+  <include file="$(find multi_robots)/launch/includes/move_base_multirobot.launch.xml">
+    
+  </include>
+
+
+  
+</launch>

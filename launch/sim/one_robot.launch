@@ -1,0 +1,68 @@
+<!-- xml -->
+<launch>
+  <arg name="robot_name"/>
+  <arg name="init_pose"/>
+  
+  <arg name="tf_robot"/> 
+  
+  <arg name="base"      value="$(optenv TURTLEBOT_BASE kobuki)"/> 
+  <arg name="battery"   value="$(optenv TURTLEBOT_BATTERY /proc/acpi/battery/BAT0)"/>  
+  <arg name="stacks"    value="$(optenv TURTLEBOT_STACKS hexagons)"/>  
+  <arg name="3d_sensor" value="$(optenv TURTLEBOT_3D_SENSOR kinect)"/>  
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find turtlebot_description)/robots/$(arg base)_$(arg stacks)_$(arg 3d_sensor).urdf.xacro'" />
+  
+    <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="spawn_turtlebot_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -unpause -model $(arg robot_name) -param robot_description $(arg init_pose) "/>
+  
+  <!--
+  <node pkg="tf" type="static_transform_publisher" name="tf_error_solver1" args="0 0 0 0 0 0 
+       /$(arg tf_robot)/camera_depth_optical_frame 
+       /$(arg tf_robot)/$(arg tf_robot)/camera_depth_optical_frame 100"/> 
+  -->
+  <!-- Velocity muxer -->
+  <node pkg="nodelet" type="nodelet" name="mobile_base_nodelet_manager" args="manager"/>
+  
+  <node pkg="nodelet" type="nodelet" name="cmd_vel_mux"
+	args="load yocs_cmd_vel_mux/CmdVelMuxNodelet mobile_base_nodelet_manager">
+    <param name="yaml_cfg_file" value="$(find turtlebot_bringup)/param/mux.yaml" />
+    <remap from="cmd_vel_mux/output" to="mobile_base/commands/velocity"/>
+  </node>
+  
+  <!-- Bumper/cliff to pointcloud (not working, as it needs sensors/core messages) -->
+  <!-- <include file="$(find turtlebot_bringup)/launch/includes/kobuki/bumper2pc.launch.xml"/> -->
+    
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="$(arg robot_name)_state_publisher" output="screen">
+    
+    <param name="tf_prefix" type="string" value="$(arg tf_robot)"/>
+    <param name="publish_frequency" type="double" value="30.0" />
+    
+     
+    <!--<remap from="/tf" to="/$(arg tf_robot)"/> -->
+  </node>
+ 
+  <!-- Fake laser -->
+  <node pkg="nodelet" type="nodelet" name="laserscan_nodelet_manager" args="manager"/>
+  <node pkg="nodelet" type="nodelet" name="depthimage_to_laserscan"
+	args="load depthimage_to_laserscan/DepthImageToLaserScanNodelet laserscan_nodelet_manager">
+    <param name="scan_height" value="10"/>
+    <param name="output_frame_id" value="$(arg tf_robot)/camera_depth_frame"/>
+    <param name="range_min" value="0.45"/>
+    <remap from="image" to="camera/depth/image_raw"/>
+    
+  </node>
+  
+  
+  <!--
+  <node pkg="fake_localization" type="fake_localization" name="fake_localization" respawn="false" output="screen">
+    <param name="odom_frame_id" value="odom" />
+    <param name="base_frame_id" value="base_link" />
+  </node>
+  -->
+  
+  
+  
+  
+  
+</launch>

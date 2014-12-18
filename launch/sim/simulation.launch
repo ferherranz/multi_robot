@@ -1,0 +1,14 @@
+<!-- xml -->
+<launch>
+  <param name="/use_sim_time" value="true" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="use_sim_time" value="true"/>
+    <!--<arg name="debug" value="false"/>-->
+    <arg name="world_name" value="$(find turtlebot_gazebo)/worlds/playground.world"/>
+  </include>
+  
+  <!-- include our robots -->
+  <include file="$(find demos)/launch/robots.launch"/>
+</launch>
+
+
