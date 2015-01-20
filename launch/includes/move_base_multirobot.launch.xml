@@ -11,13 +11,13 @@
   <arg name="odom_topic" default="odom" />
 
   <node pkg="move_base" type="move_base" respawn="true" name="move_base" output="screen">
-    <rosparam file="$(find multi_robots)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find multi_robots)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />   
-    <rosparam file="$(find multi_robots)/param/local_costmap_params.yaml" command="load" />   
-    <rosparam file="$(find multi_robots)/param/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find multi_robots)/param/base_local_planner_params.yaml" command="load" />
-    <rosparam file="$(find multi_robots)/param/dwa_local_planner_params.yaml" command="load" />
-    <rosparam file="$(find multi_robots)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find multi_robot)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find multi_robot)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />   
+    <rosparam file="$(find multi_robot)/param/local_costmap_params.yaml" command="load" />   
+    <rosparam file="$(find multi_robot)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find multi_robot)/param/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find multi_robot)/param/dwa_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find multi_robot)/param/move_base_params.yaml" command="load" />
     
     <!-- reset frame_id parameters using user input data -->
     <param name="global_costmap/global_frame" value="$(arg global_frame_id)"/>

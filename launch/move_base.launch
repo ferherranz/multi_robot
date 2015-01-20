@@ -8,7 +8,7 @@
   <arg name="initial_pose_x" default="0.0"/> 
   <arg name="initial_pose_y" default="0.0"/> 
   <arg name="initial_pose_a" default="0.0"/>
-  <include file="$(find multi_robots)/launch/includes/amcl_multirobot.launch.xml">
+  <include file="$(find multi_robot)/launch/includes/amcl_multirobot.launch.xml">
     <arg name="use_map_topic"             value="true"/>
     <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
     <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
@@ -19,7 +19,7 @@
     
   </include>
 
-  <include file="$(find multi_robots)/launch/includes/move_base_multirobot.launch.xml">
+  <include file="$(find multi_robot)/launch/includes/move_base_multirobot.launch.xml">
     
   </include>
 
