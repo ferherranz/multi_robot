@@ -10,12 +10,19 @@ This package provides an implementation of the multi robot configuration of the 
 Multi robot navigation:
 
  *  **Bring up both robots**
- $  roslaunch multi_robot multi_robot.launch 
+
+
+	$ roslaunch multi_robot multi_robot.launch 
  *  **Start Navigation**
- $  roslaunch multi_robot multi_robot_navigation.launch
+ 
+ 
+ 	$ roslaunch multi_robot multi_robot_navigation.launch
+
 
 For visualization:
 
  *  **Start RVIZ**
+ 
+ 
     $ rosrun rviz rviz
  *  Load the config file multi_robot_full.rviz allocated in rviz folder
