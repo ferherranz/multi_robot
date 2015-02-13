@@ -1,8 +1,6 @@
 <!-- xml -->
 <launch>
-  <!--
-  <param name="/use_sim_time" value="true"/>
--->
+
   <!-- Run the map server -->
   <arg name="map_file" default="/datos/bamboo_ros_ws/maps/oficina.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" >
@@ -20,6 +18,10 @@
      <arg name="tf_robot" value="$(arg _tf_robot)" /> 
      
     </include>
+    
+    <node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" output="screen">      
+      <param name="base_frame"             value="$(arg _tf_robot)/base_link"/> 
+    </node> 
  
   </group>
 
@@ -35,7 +37,10 @@
      <arg name="tf_robot" value="$(arg _tf_robot)" /> 
      
     </include>
- 
+     <node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" output="screen">      
+      <param name="base_frame"             value="$(arg _tf_robot)/base_link"/> 
+    </node> 
+    
   </group>
 
   
