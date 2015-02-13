@@ -8,7 +8,6 @@
   </node>
 
   <group ns="robot1">
-   
     <arg name="_robot_name"  value="robot1" />
     <arg name="_tf_robot" value="$(arg _robot_name)_tf" /> 
     <param name="tf_prefix" type="string" value="$(arg _tf_robot)"/>
@@ -24,10 +23,8 @@
     </node> 
  
   </group>
-
   
   <group ns="robot2">
-  
     <arg name="_robot_name"  value="robot2" />
     <arg name="_tf_robot" value="$(arg _robot_name)_tf" /> 
     <param name="tf_prefix" type="string" value="$(arg _tf_robot)"/>
@@ -42,6 +39,5 @@
     </node> 
     
   </group>
-
   
 </launch>

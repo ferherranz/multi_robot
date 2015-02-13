@@ -1,21 +1,7 @@
 <!-- xml -->
 <launch>
 
-  <group ns="robot1">
-    <machine name="robot_angel" address="192.168.3.51" user="robot" password="robot" default="true" env-loader="/datos/bamboo_ros_ws/turtlebot/devel/env.sh"/>
-    <include file="$(find turtlebot_bringup)/launch/multi_robot_angel.launch">
-    </include>
-  </group>
-  
-  <group ns="robot2">
-    <machine name="robot_tablet" address="192.168.3.50" user="fherranz" password="Y8Fibcdc" default="true" env-loader="/home/fherranz/env_loader.sh"/>   
-      
-    <include file="$(find turtlebot_bringup)/launch/multi_robot_tablet.launch">
-    </include>
-  </group>
-
-  
-
-
+  <include file="$(find multi_robot)/launch/robot1_bringup.launch">
+  <include file="$(find multi_robot)/launch/robot2_bringup.launch">
   
 </launch>
